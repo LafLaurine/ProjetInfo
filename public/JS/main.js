@@ -2,6 +2,7 @@ $( document ).ready(function() {
 
 $(".email-signup").hide();
 
+
 $("#signup-box-link").click(function(){
   $(".email-login").fadeOut(100);
   $(".email-signup").delay(100).fadeIn(100);

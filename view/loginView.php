@@ -36,7 +36,7 @@ class ViewAuthentification{
 <input type="text" name="pseudo" placeholder="Pseudo">
 </div>
   <div class="u-form-group">
-    <input type="password" placeholder="Mot de passe" name="password"/>
+    <input type="password" placeholder="Mot de passe" name="pass"/>
   </div>
   <div class="u-form-group">
     <button>Se connecter</button>
@@ -56,7 +56,7 @@ class ViewAuthentification{
   </div>
   
   <div class="u-form-group">
-    <input type="password" id="password" name="password" placeholder="Mot de passe" pattern=".{5,}" required="" title="Au moins 5 caractères" ></br>
+    <input type="password" id="password" name="pass" placeholder="Mot de passe" pattern=".{5,}" required="" title="Au moins 5 caractères" ></br>
   </div>
   <div class="u-form-group">
     <input type="password" name="passwordconf" required="" placeholder="Confirmer le mot de passe"/>
@@ -84,8 +84,12 @@ class ViewAuthentification{
     echo "<h2 style=\"color:#3080D0; text-align:center;\"> Utilisateur non inscrit </h2>";
    }
 
-   if(@$_GET['action'] == 'empty' ) {
-    echo "<h2 style=\"color:#3080D0; text-align:center;\"> Champs vides </h2>";
+   if(@$_GET['action'] == 'pseudo' ) {
+    echo "<h2 style=\"color:#3080D0; text-align:center;\"> Pseudo déjà pris</h2>";
+   }
+
+   if(@$_GET['action'] == 'mail' ) {
+    echo "<h2 style=\"color:#3080D0; text-align:center;\"> Mail déjà utilisé </h2>";
    }
 ?>
 

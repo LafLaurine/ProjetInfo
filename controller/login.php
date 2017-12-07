@@ -4,7 +4,7 @@ require_once 'userAuthentification.php';
 
 class Login {
     
-          private $loginUser;
+        private $loginUser;
      
         public function __construct()
         {

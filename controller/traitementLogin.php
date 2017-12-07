@@ -12,21 +12,19 @@ function connectBd () {
 }
 
 
-function userExists($pseudo) 
+function userExists() 
 {
     $db = connectBd ();
     $pseudo = $_POST['pseudo'];
-    $query = $db->prepare('SELECT pseudo FROM user WHERE pseudo = :pseudo');
-    $query->bindParam(':pseudo', $pseudo, PDO::PARAM_STR, 42);
-    $query->execute();
-    return ($query->rowCount() == 1);
+    $query = $db->query("SELECT * FROM user WHERE pseudo ='$pseudo';");
+    $result = $query->fetch();
+    return $result;
 }
 
 
 
-
-$pseudo = $_POST['pseudo'];
-$password = $_POST['password'];
+$pseudo = filter_input(INPUT_POST, 'pseudo');
+$password = filter_input(INPUT_POST, 'pass');
 
 if (isset($pseudo,$password))
 {
@@ -40,7 +38,7 @@ if (isset($pseudo,$password))
             //On crypte à nouveau le mot de passe afin de vérif avec le bon
         $hash = hash("sha256",$password);
         // Vérification des identifiants
-        $query = "SELECT * FROM user WHERE (pseudo = :pseudo AND password = :hash)";   
+        $query = "SELECT * FROM user WHERE (pseudo = :pseudo AND pass = :hash)";   
         $req = $db->prepare($query);
         $req->bindParam('pseudo', $pseudo, PDO::PARAM_STR, 42);
         $req->bindParam('hash', $hash , PDO::PARAM_STR, 64);
@@ -54,24 +52,30 @@ if (isset($pseudo,$password))
             if (!session_id()) 
             session_start();
             $_SESSION['pseudo'] = $pseudo;
-            header('Location: ../index.php');
+            header('Location: ../view/home.php');
                 
-        } else 
+        } 
+        
+        else 
         {
             header( 'Location: ../index.php?action=fail');
         }
         
         
-    }  catch (PDOException $e)
-        {
-           echo 'Erreur, problème de connexion à la base';
-        }
-       
-       
-
+         
     }
+    
+    catch (PDOException $e)
+    {
+       echo 'Erreur, problème de connexion à la base';
+    }
+       
+       
 
-        else
+        }
+     
+    
+    else
         {
             header( 'Location: ../index.php?action=user');
         }
@@ -80,9 +84,14 @@ if (isset($pseudo,$password))
             'cost' => 11,
             'salt' => 111111111111111111111111111
         ];
+      
 
-        
-}
+       
+
+    }   
+    
+    
+
 
 else
 {

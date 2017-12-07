@@ -16,8 +16,7 @@ function connectBd () {
 //teste si le nom d'utilisateur est pris ou non
 function testpseudoValidity ($pseudo) {
     $db = connectBd ();
-    $req = $db->prepare('SELECT * FROM user WHERE pseudo = :pseudo');
-    $req->execute(array("pseudo" => $pseudo));
+    $req = $db->query("SELECT * FROM user WHERE pseudo ='$pseudo';");
     $result = $req->fetch();
     if ($result)
         return true;
@@ -26,10 +25,9 @@ function testpseudoValidity ($pseudo) {
 }
 
 //test si le mail est pris ou non
-function testEmailValidity ($email) {
+function testEmailValidity ($mail) {
     $db = connectBd ();
-    $req = $db->prepare('SELECT * FROM user WHERE email = :email');
-    $req->execute(array("email" => $email));
+    $req = $db->query("SELECT * FROM user WHERE email = '$mail';");
     $result = $req->fetch();
     if ($result)
         return true;
@@ -39,39 +37,35 @@ function testEmailValidity ($email) {
 
 // Récupération des variables issues du formulaire par la méthode post
 $pseudo = filter_input(INPUT_POST, 'pseudo');
-$password = filter_input(INPUT_POST, 'password');
+$password = filter_input(INPUT_POST, 'pass');
 $passwordconf = filter_input(INPUT_POST, 'passwordconf');
 $mail = filter_input(INPUT_POST, 'mail');
 
 // Si le formulaire est envoyé
 if (isset($pseudo,$password,$mail)) 
 {   
+    $db = connectBd();
     // Teste que les valeurs ne sont pas vides ou composées uniquement d'espaces  
     $pseudo = trim($pseudo) != '' ? $pseudo : null;
     $password = trim($password) != '' ? $password : null;
+
+    $pseudoValidity = testpseudoValidity($pseudo);
+    $mailValidity = testEmailValidity($mail);
    
-    //Si différent de null
+    
 
     try
     {
         $db = connectBd();
-    }
-    catch (PDOException $e)
-    {
-        exit('Erreur, problème de connexion à la base');
-    }
 
-    $pseudoValidity = testpseudoValidity($pseudo);
-    $mailValidity = testEmailValidity($mail);
-
-    //redirige en GET si nom utilisateur existe déjà
+        //redirige en GET si nom utilisateur existe déjà
     if ($pseudoValidity) {
-        header("Location: ../register.php?error=pseudo");    
+        header("Location: ../index.php?error=pseudo");    
     }
 
     //redirige en GET si mail existe déjà
     else if ($mailValidity) {
-        header ("Location: ../register.php?error=email");
+        header ("Location: ../index.php?error=email");
     } 
     
     //Association des éléments que l'user a entré à la BD
@@ -80,17 +74,23 @@ if (isset($pseudo,$password,$mail))
         {
             // Password du form
             $hash = hash("sha256",$password);
-            $req = $db->prepare('INSERT INTO user(pseudo, password, email) VALUES (:pseudo, :password, :mail)');
-    
-            $req->execute(array("pseudo" => $pseudo, "password"=>$hash, "mail"=>$mail));
+            $req = $db->prepare('INSERT INTO user(pseudo, pass, email) VALUES (?,?,?)');
+
+            $req->bindParam(1, $pseudo);
+            $req->bindParam(2, $hash);
+            $req->bindParam(3, $mail);
+            $req->execute();
             
             if($req)
             {
-                if (!session_id()) 
+                if (!session_id())
+                {
                     session_start();
                     setcookie('pseudo', $_POST['pseudo'], time() + 365*24*3600, null, null, false, true); 
             
                     header( 'Location: ../index.php?action=success');
+                }
+                    
     
             }                
         }
@@ -102,6 +102,16 @@ if (isset($pseudo,$password,$mail))
         }
         
     }
+
+    }
+    catch (PDOException $e)
+    {
+        exit('Erreur, problème de connexion à la base');
+    }
+
+    
+
+    
 
 
 }

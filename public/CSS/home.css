@@ -1,5 +1,7 @@
 body {
 	margin: 0;
+	width:100%;
+	height:100%;
 }
 
 
@@ -8,10 +10,17 @@ button,
 input,
 select,
 textarea {
-	color: lightblack;
+	color:black;
 	font-family: 'Helvetica', Arial, sans-serif;
 	font-size: 18px;
 	line-height: 1.5;
+}
+
+p
+{
+	word-wrap: break-word;
+	width:18em;
+	font-size: 15px;
 }
 
 a
@@ -49,6 +58,7 @@ p {
 
 .main-content {
 	background: white;
+	text-align: center;
 }
 .masthead {
 	background: #2185C5;
@@ -64,11 +74,61 @@ p {
   border-radius: 2px;
   display: inline-block;
   height: 19em;
+  color:black;	
   margin: 1rem;
   position: relative;
   width: 18em;
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
+
+.article .body {
+	position: relative;
+	max-height: 360px;
+	overflow-y: scroll;
+}
+
+
+.article .body ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border-top: 1px solid #f2f2f2;
+  }
+
+
+.article .body ul li {
+	position: relative;
+	background: #ffffff;
+	display: block;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+  }
+
+  .article .body ul li:before,
+  .article .body ul li:after {
+	display: block;
+	content: '';
+	clear: both;
+  }
+  
+  
+.sort-stop .slide{
+	transition: none; //prevent slide transition at end 
+  }
+  .sorting .sortable-placeholder{ 
+	transition: height 0.3s linear; //compensate slide transition at begin
+	height: 0px;
+  }
+  .sortable-placeholder{
+	height: 60px;
+  }
+  .slide.ui-sortable-helper{
+	transition: none;
+  }
+  .sortable-placeholder ~ .slide:not(.ui-sortable-helper){
+	transform: translateY(60px);
+  }
 
 
 .article:hover {
