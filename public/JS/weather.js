@@ -19,9 +19,8 @@ $(function() {
       function success(pos) {
         console.log(pos);
         var crd = pos.coords;
-        var lat = crd.latitude,
-        long = crd.longitude,
-      
+        var lat = crd.latitude;
+        var long = crd.longitude,
         // utilise API CORS-ANYWHERE pour https appel d'API 
         owApiUrl = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=" + unitType + "&APPID=" + owAppId;
         
@@ -51,11 +50,11 @@ $(function() {
     
     // insérer le contenu
     function modifyDOM(current) {
-      var city = "<p>" + current.city + "</p>",
+      var city = "<p>" + current.city + "</p>",   
       date = "<p>" + current.date + "</p>",
       icon = "<img src='" + current.icon + "'>",
       desc = "<p>" + current.condition + "</p>",
-      temp = "<p class='small'>Température</p><p>" + current.temp + " <span>" + getTempSymbol(current.unitType) + "</span></p>",
+      temp = "<p class='small'>Température</p><p>" + current.temp + getTempSymbol(current.unitType) + "</p>",
       hum = "<p class='small'>Humidité</p><p>" + current.humidity + "<span>&#37;</span></p>";
       $(".city").html(city);
       $(".date").html(date);
@@ -98,13 +97,13 @@ $(function() {
     
 
     
-    displayWeather("imperial");
+    displayWeather("metric");
     
-    $(".btn").click(function() {
+    $(".btnMetric").click(function() {
       if ($(this).hasClass("metric")) {
         $(this).removeClass("metric");
         $(this).addClass("imperial");
-        $(this).text("US / Imperial");
+        $(this).text("imperial");
         displayWeather("metric");
       } else {
         $(this).removeClass("imperial");

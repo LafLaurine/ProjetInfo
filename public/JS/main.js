@@ -16,4 +16,13 @@ $("#login-box-link").click(function(){
   $("#login-box-link").addClass("active");
   $("#signup-box-link").removeClass("active");
 });
+
+$( document ).ready(function() {
+  $('.trigger').click(function() {
+     $('.modal-wrapper').toggleClass('open');
+    $('.site').toggleClass('blur');
+     return false;
+  });
+});
+
 });

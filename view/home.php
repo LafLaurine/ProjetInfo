@@ -2,6 +2,7 @@
 
 session_start();
 header('Content-type: text/html; charset=utf-8');
+require "../controller/controllerArticles.php";
 
 ?>
 
@@ -27,61 +28,86 @@ header('Content-type: text/html; charset=utf-8');
 </header>
 
     <main id="content" class="main-content">
+     
         <h2>Articles</h2>
-      <a href="param"><h3>+</h3></a>
+      <a class="btn trigger" href="javascript:;"><h3>+</h3></a>
+
+      <div class="modal-wrapper">
+        <div class="modal">
+          <div class="head">
+          <a class="btn-close trigger" href="javascript:;"></a>
+          </div>
+        <div class="contentModal">
+        </div>
+        </div>
+      </div>
+
+
+
+      <?php 
+      $objet = new ControllerArticles();?>
       <div class="article">
-      <header><h2>HEADER</h2></header>
+      <header><h2>Die Zeit</h2></header>
       <div class='body'>
     <ul>
       <li>
         <div class='content'>
-      <?php include('../controller/controllerArticles.php') ?> 
+      <?php 
+
+      $objet->dieZeit(); ?> 
       </li>
     </ul></div>
     </div>
-      <div class="article"><header><h2>HEADER</h2></header><div class='body'>
+      <div class="article"><header><h2>Google News</h2></header><div class='body'>
     <ul>
       <li>
-        <div class='content'><?php article(); ?></ul>
+        <div class='content'> <?php 
+
+      $objet->theGuardian(); ?> </ul>
         </li></div>
       </div>
       <div class="article">
-      <header><h2>HEADER</h2></header>
+      <header><h2>Libération</h2></header>
       <div class='body'>
     <ul>
       <li>
         <div class='content'>
-      <?php include('../controller/controllerArticles.php') ?> 
+        <?php 
+      $objet->liberation(); ?> 
       </li>
     </ul></div>
     </div>
       <div class="article">
-      <header><h2>HEADER</h2></header>
+      <header><h2>El Mundo</h2></header>
       <div class='body'>
     <ul>
       <li>
         <div class='content'>
-      <?php include('../controller/controllerArticles.php') ?> 
+       <?php
+      $objet->elMundo(); ?> 
       </li>
     </ul></div>
     </div>
     <div class="article">
-      <header><h2>HEADER</h2></header>
+      <header><h2>Le Monde</h2></header>
       <div class='body'>
     <ul>
       <li>
         <div class='content'>
-      <?php include('../controller/controllerArticles.php') ?> 
+        <?php 
+      $objet->leMonde(); ?> 
       </li>
     </ul></div>
     </div>
     <div class="article">
-      <header><h2>HEADER</h2></header>
+      <header><h2>Aften Posten</h2></header>
       <div class='body'>
     <ul>
       <li>
         <div class='content'>
-      <?php include('../controller/controllerArticles.php') ?> 
+        <?php 
+
+      $objet->aftenPosten(); ?> 
       </li>
     </ul></div>
     </div>
@@ -104,9 +130,10 @@ header('Content-type: text/html; charset=utf-8');
       
       </div><div class="row">
       <div class="col-xs-12 text-center">
-      <button class="btn btn-default imperial">Show US / Imperial</button>
+      <button class="btnMetric">&deg;C/&deg;F</button>
       </div>
-      </div><form action="../controller/result.php" method="post">
+      </div>
+      <form action="../controller/result.php" method="post">
       <input name="mot" type="text">
       <input value="Rechercher" type="submit">
       </form>
@@ -115,39 +142,8 @@ header('Content-type: text/html; charset=utf-8');
 
   <?php
 
-  function article()
-  {
-    $url = 'https://news.google.com/news/rss/headlines/section/topic/ENTERTAINMENT.fr_fr/Culture?ned=fr&hl=fr&gl=FR';
-    $xml = simpleXML_load_file($url,"SimpleXMLElement",LIBXML_NOCDATA);
-    
-        
-         //Lecture des données
-    
-    
-      //Google News présentation (Flux RSS de la culture FR)
-       foreach($xml->channel as $valeur)
-         {
-            //Affichages des données
-            $image = $valeur->image->url;
-            echo '<p>'.date("d/m/Y",strtotime($valeur->pubDate)).' - <a href="'.$valeur->link.'">'.utf8_encode($valeur->title).'</a>';
-            echo '<br/>'.utf8_encode($valeur->description);
-            echo '<br/>'.utf8_encode($valeur->image->title).'</p>';
-            echo '<img src="'.$image.'" height="50"; "width="50" ;>';
-         }  
-    
-         //Articles
-    
-         foreach($xml->channel->item as $valeur)
-         {
-            //Affichages des données
-            $image = $valeur->image->url;
-            echo '<p>'.date("d/m/Y",strtotime($valeur->pubDate)).' - <a href="'.$valeur->link.'">'.utf8_encode($valeur->title).'</a>';
-            echo '<br/>'.utf8_encode($valeur->description);
-            echo '<br/>'.utf8_encode($valeur->image->title).'</p>';
-            echo '<img src="'.$image.'" height="50"; "width="50" ;>';
-            echo '<br/>'.utf8_encode($valeur->image->link).'</p>';
-         }  
-  }
+  
+  
 
 
      ?>
