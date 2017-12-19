@@ -10,12 +10,6 @@ class Login {
         {
                 $this->article= new ControllerArticles();
         }
-    
-          // Traite une requête entrante
-        public function article()
-        {
-            $this->article->allArticle();   
-        }
     }
 
 ?>

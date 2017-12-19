@@ -18,6 +18,7 @@ $("#login-box-link").click(function(){
 });
 
 $( document ).ready(function() {
+
   $('.trigger').click(function() {
      $('.modal-wrapper').toggleClass('open');
     $('.site').toggleClass('blur');

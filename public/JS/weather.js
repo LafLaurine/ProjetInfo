@@ -103,12 +103,12 @@ $(function() {
       if ($(this).hasClass("metric")) {
         $(this).removeClass("metric");
         $(this).addClass("imperial");
-        $(this).text("imperial");
+        $(this).text("°F");
         displayWeather("metric");
       } else {
         $(this).removeClass("imperial");
         $(this).addClass("metric");
-        $(this).text("Metric");
+        $(this).text("°C");
         displayWeather("imperial");
       }
     });

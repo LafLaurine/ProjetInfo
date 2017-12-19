@@ -14,8 +14,11 @@ require "../controller/controllerArticles.php";
 <link rel="stylesheet" type="text/css" href="../public/CSS/style.css">
 <link rel="stylesheet" type="text/css" href="../public/CSS/home.css">
 <script type="text/javascript" src="../public/JS/jquery-3.2.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="../public/JS/main.js"></script>
 <script src="../public/JS/weather.js"></script>
+<script src="../public/JS/affichageArticles.js"></script>
+
 </head>
 <body>
 
@@ -46,27 +49,44 @@ require "../controller/controllerArticles.php";
 
       <?php 
       $objet = new ControllerArticles();?>
-      <div class="article">
-      <header><h2>Die Zeit</h2></header>
+      <div class="article" id="article_1">
+        <header>
+          <a class="hide"><h4 class="cross">X</h4></a>
+          <h2>Die Zeit</h2></header>
+        <div class='body'>
+          <ul>
+          <li>
+            <div class='content'>
+            <?php 
+
+            $objet->dieZeit(); ?> 
+            </div>
+          </li>
+    </ul>
+    
+    </div>
+    </div>
+      
+    <div class="article" id="article_2">
+      <header>
+      <a class="hide"><h4 class="cross">X</h4></a>
+      <h2>The Guardian</h2></header>
       <div class='body'>
     <ul>
       <li>
         <div class='content'>
       <?php 
 
-      $objet->dieZeit(); ?> 
-      </li>
-    </ul></div>
-    </div>
-      <div class="article"><header><h2>Google News</h2></header><div class='body'>
-    <ul>
-      <li>
-        <div class='content'> <?php 
-
-      $objet->theGuardian(); ?> </ul>
-        </li></div>
+      $objet->theGuardian(); ?> 
       </div>
-      <div class="article">
+      </li>
+    </ul>
+    </div>
+    </div>
+
+
+      <div class="article" id="article_3">
+      <a class="hide"><h4 class="cross">X</h4></a>
       <header><h2>Libération</h2></header>
       <div class='body'>
     <ul>
@@ -74,10 +94,12 @@ require "../controller/controllerArticles.php";
         <div class='content'>
         <?php 
       $objet->liberation(); ?> 
+      </div>
       </li>
     </ul></div>
     </div>
-      <div class="article">
+      <div class="article" id="article_4">
+      <a class="hide"><h4 class="cross">X</h4></a>
       <header><h2>El Mundo</h2></header>
       <div class='body'>
     <ul>
@@ -85,10 +107,12 @@ require "../controller/controllerArticles.php";
         <div class='content'>
        <?php
       $objet->elMundo(); ?> 
+      </div>
       </li>
     </ul></div>
     </div>
-    <div class="article">
+    <div class="article" id="article_5">
+    <a class="hide"><h4 class="cross">X</h4></a>
       <header><h2>Le Monde</h2></header>
       <div class='body'>
     <ul>
@@ -96,18 +120,21 @@ require "../controller/controllerArticles.php";
         <div class='content'>
         <?php 
       $objet->leMonde(); ?> 
+      </div>
       </li>
     </ul></div>
     </div>
-    <div class="article">
+
+    <div class="article" id="article_6">
+    <a class="hide"><h4 class="cross">X</h4></a>
       <header><h2>Aften Posten</h2></header>
       <div class='body'>
     <ul>
       <li>
         <div class='content'>
         <?php 
-
-      $objet->aftenPosten(); ?> 
+      $objet->aftenPosten(); ?>
+      </div> 
       </li>
     </ul></div>
     </div>
