@@ -3,7 +3,6 @@
 session_start();
 header('Content-type: text/html; charset=utf-8');
 require "../controller/controllerArticles.php";
-
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +15,7 @@ require "../controller/controllerArticles.php";
 <script type="text/javascript" src="../public/JS/jquery-3.2.1.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="../public/JS/main.js"></script>
-<script src="../public/JS/weather.js"></script>
+<!-- <script src="../public/JS/weather.js"></script> -->
 <script src="../public/JS/affichageArticles.js"></script>
 
 </head>
@@ -41,6 +40,7 @@ require "../controller/controllerArticles.php";
           <a class="btn-close trigger" href="javascript:;"></a>
           </div>
         <div class="contentModal">
+        <button type="button" onclick="add()">Add</button>
         </div>
         </div>
       </div>
@@ -142,24 +142,20 @@ require "../controller/controllerArticles.php";
 
     <aside class="sidebar">
       <h3>Menu</h3>
-      <div class="date" style="color:black;"></div>
-      <div class="row" style="color:black;">
-     
-      <div class="city"></div>
-      <div class="info">
-        <div class="icon"></div>
-        <div class="desc"></div>
-      </div>
-      <div class="weather">
-        <div class="temp"><p class="small"></p></div>
-        <div class="humidity"><p class="small"></p></div>
-      </div>
-      
-      </div><div class="row">
-      <div class="col-xs-12 text-center">
-      <button class="btnMetric">&deg;C/&deg;F</button>
-      </div>
-      </div>
+      <form method="GET" action="../view/home.php">
+        <h3>Entrer un pays :</h3>
+          <input type="text" name="q" required>
+          <input type="submit" name="getWeather">
+		  </form>
+      <?php
+        include("../controller/controllerWeather.php");
+        echo $city;
+        echo $country; 
+        echo $temperature; 
+        echo $logo; 
+        echo $desc;
+       ?>
+
       <form action="../controller/result.php" method="post">
       <input name="mot" type="text">
       <input value="Rechercher" type="submit">

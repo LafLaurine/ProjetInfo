@@ -10,11 +10,11 @@ class ControllerArticles{
     
         foreach ($result["articles"] as $article)
         {
-          echo '<p>'.$article["title"]. '</p>';
-          echo '<p>'.$article["author"]. '</p>';
-          echo '<p>'.$article["description"]. '</p>';
-          echo '<p>'.$article["url"]. '</p>';
-          echo '<img src="'.$article["urlToImage"]. '" style="height:12em;"/>';
+          echo '<p>'.$article["title"].'</p>';
+          echo '<p>'.$article["author"].'</p>';
+          echo '<p>'.$article["description"].'</p>';
+          echo '<p>'.$article["url"].'</p>';
+          echo '<img src="'.$article["urlToImage"].'" style="height:12em;"/>';
     
     
         }
@@ -431,13 +431,11 @@ class ControllerArticles{
         }      
 
       }
+    }  
+
+    if(isset($_GET['param']))
+    {
+
     }
 
-      
-    
-    
-     
-
-  
-    
     ?>

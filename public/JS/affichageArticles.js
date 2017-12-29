@@ -2,38 +2,30 @@ $( document ).ready(function(){
     var articles_affiches = [];
 	var articles_non_affiches = [];
 
-    $(".hide").click(function(e){
-
-		e.preventDefault();
-		var i = $(".hide").index(e);
-
-		$(".article").eq(i).fadeOut();
+	$("body").on("click",".hide",function(e){
 		
+				console.log("clicked on : ",e,$(".hide").index(this));
 		
+				e.preventDefault();
+				var i = $(".hide").index(this);
+		
+				$(".article").eq(i).fadeOut();		
+				
 	});
 	
-	var myData = 'article='+ $(".article").val();
+        
+});
 
     
-    $("#submit").click(function()
-	{ 
-		$.ajax({       
-			url : '../../controller/controllerArticles.php',       
-			type : 'POST',      
-			data : myData,
-			dataType : 'php',
-
-			success : function(add){
-				articles_non_affiches.push(add);
-			},
-
-			error :	function(error){
-				window.alert("Erreur");
-			}
-		});  
+function add()
+{ 
+	$.get("http://localhost/ProjetInfo/view/home.php?param=val",{param:true},function(rep){
+		//console.log("dfhjdfkfdjhfds");
+		var n = prompt("Temps de chargement :");
+		entier = parseInt(n); 
+		var timer = setInterval(add,n);   
 	});
-        
-        
-        });
+};
+	
         
     
